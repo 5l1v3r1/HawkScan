@@ -1,6 +1,6 @@
 # HawkScan
 
-![alt tag](https://user-images.githubusercontent.com/29504335/43905037-75a2a9ea-9bf0-11e8-8d6b-2de51318be98.jpg)
+![alt tag](https://github.com/c0dejump/HawkScan/blob/master/static/logo.jpg)
 
 Security Tool for Reconnaissance and Information Gathering on a website. (python 2.x & 3.x)
 
