@@ -23,6 +23,7 @@ class mini_scans:
         with open(directory + '/header.csv', 'w+') as file:
             file.write(str(head).replace(',','\n'))
 
+
     def gitpast(self, url):
         """
         Github: check github informations
@@ -49,6 +50,7 @@ class mini_scans:
                 print("  {}{}: not found".format(INFO, t))
         print("\n" + LINE)
 
+
     def who_is(self, url, directory):
         """Get whois of website"""
         print(INFO + "WHOIS")
@@ -69,6 +71,7 @@ class mini_scans:
             msgerr = u"%s" % (erreur[1])
             print(msgerr)
         print("\n" + LINE)
+
 
     def get_dns(self, url, directory):
         """Get DNS informations"""
@@ -103,6 +106,7 @@ class mini_scans:
             msgerr = u"%s" % (erreur[1])
             print(msgerr + "\n")
             print(LINE)
+
 
     def firebaseio(self, url):
         """
@@ -139,6 +143,7 @@ class mini_scans:
             '''
             print("{} null return".format(INFO))
         print(LINE + "\n")
+        
 
     def wayback_check(self, url, directory):
         """

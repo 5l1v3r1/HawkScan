@@ -8,7 +8,7 @@ def req_test_false_positif(res, headers):
     url_base = res.split("/")[:3]
     url_send = '/'.join(url_base)+"/"
     req_test_waf = requests.get(url_send, headers=headers, allow_redirects=True, verify=False)
-    #print(req_test_waf)
+    #print(req_test_waf)#DEBUG
     return req_test_waf
 
 def verify_waf(req, res, headers, display=True):

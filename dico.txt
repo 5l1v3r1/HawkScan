@@ -1304,7 +1304,6 @@ carla/
 carlos/
 carmen/
 carofthemonth/
-carol/
 carole/
 carolina/
 caroline/

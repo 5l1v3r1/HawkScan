@@ -34,6 +34,7 @@ class check_cms:
                 print("\t{} This website use \033[32m{}\033[0m but nothing version found \n".format(PLUS, result))
                 print(LINE)
                 return False, False;
+                
 
     def cve_cms(self, result, v):
         """

@@ -11,7 +11,7 @@ This script use "Sublist3r" to scan subdomains (https://github.com/aboul3la/Subl
 This script use "waybacktool" to check in waybackmachine (https://github.com/Rhynorater/waybacktool)
 
 # News
-**!** V 1.3 !   
+**!** V 1.3.1 !   
 **!** New logo
 **!** Code review
 **!** Adding Changelog

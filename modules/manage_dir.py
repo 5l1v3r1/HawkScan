@@ -4,7 +4,7 @@ from config import PLUS, WARNING, INFO, LESS, LINE, FORBI, BACK
 class manage_dir:
 
     def check_backup(self, directory):
-        """Check if a backup file exist from function 'Status' """
+        """Check if a backup file exist from function 'Status'"""
         if os.path.exists(directory + "/backup.txt"):
             try:
                 bp = raw_input("A backup file exist, do you want to continue or restart ? [c:r]: ")

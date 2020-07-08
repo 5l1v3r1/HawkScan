@@ -2,9 +2,10 @@ Changelog:
 ----------
 
 
-- 1.3:
+- 1.3.1:
  	Code review
  	New logo
+ 	Adding Changelog
 
 - 1.2:
  	Adding news words in dico.txt (old dico_extra.txt)

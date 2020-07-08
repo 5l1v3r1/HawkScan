@@ -61,4 +61,4 @@ def bypass_waf(req, res):
 	req = "plop"
 	user_agent = False
 	res = "https://transferwise.com/"
-	bypass_waf(req, res)"""
+	bypass_waf(req, res)""" #DEBUG

@@ -91,7 +91,7 @@ class parsing_html:
                     writer.writerow(r)
 
     def sitemap(self, req, directory):
-        """ Get sitemap.xml of website"""
+        """Get sitemap.xml of website"""
         soup = BeautifulSoup(req.text, "html.parser")
         with open(directory + '/sitemap.xml', 'w+') as file:
             file.write(str(soup).replace(' ','\n'))
