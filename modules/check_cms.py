@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from config import PLUS, WARNING, INFO, LESS, LINE
 
-class detect_scans:
+class check_cms:
 
     def detect_cms(self, url, directory):
         """
