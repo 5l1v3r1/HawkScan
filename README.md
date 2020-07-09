@@ -80,7 +80,7 @@ This script use "waybacktool" to check in waybackmachine (https://github.com/Rhy
     optional arguments: 
       -h, --help     show this help message and exit                                                                     
       -u URL         URL to scan [required]                                                                              
-      -w WORDLIST    Wordlist used for URL Fuzzing [required]                                                            
+      -w WORDLIST    Wordlist used for URL Fuzzing. Default: dico.txt                                                            
       -s SUBDOMAINS  subdomain tester                                                                                    
       -t THREAD      Number of threads to use for URL Fuzzing. Default: 20  
       -a USER_AGENT  choice user-agent     
@@ -92,7 +92,7 @@ This script use "waybacktool" to check in waybackmachine (https://github.com/Rhy
       --cookie COOKIE  Scan with an authentification cookie   
       --exclude EXCLUDE  To define a page type to exclude during scan    
       --timesleep TS     To define a timesleep/rate-limit if app is unstable during scan 
-      --auto          Automatic threads depending response to website. Max: 10    
+      --auto          Automatic threads depending response to website. Max: 20    
       --update           For automatic update
 
  >
