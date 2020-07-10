@@ -750,7 +750,7 @@ def tryUrl(i, q, threads, manager=False, directory=False, forced=False, u_agent=
                         if type(req_p) == int:
                             filterM.check_exclude_code(req)
                         else:
-                            filterM.check_exclude_page(req, res, directory, forbi, HOUR)
+                            filterM.check_exclude_page(req, res, directory, forbi, HOUR, size_bytes=len(req.content))
                     else:
                         # dl files and calcul size
                         download_file = dl(res, req, directory)
@@ -810,7 +810,7 @@ def tryUrl(i, q, threads, manager=False, directory=False, forced=False, u_agent=
                             if type(req_p) == int:
                                 filterM.check_exclude_code(req)
                             else:
-                                filterM.check_exclude_page(req, res, directory, forbi, HOUR)
+                                filterM.check_exclude_page(req, res, directory, forbi, HOUR, size_bytes=len(req.content))
                                 print("{} {} {}\033[33m => {}\033[0m 301 Moved Permanently".format(HOUR, LESS, res, redirect_link))
                                 parsing.search_s3(res, req, directory)
                                 outpt(directory, res, stats=301)
@@ -829,7 +829,7 @@ def tryUrl(i, q, threads, manager=False, directory=False, forced=False, u_agent=
                             if type(req_p) == int:
                                 filterM.check_exclude_code(req)
                             else:
-                                filterM.check_exclude_page(req, res, directory, forbi, HOUR)
+                                filterM.check_exclude_page(req, res, directory, forbi, HOUR, size_bytes=len(req.content))
                                 print("{}{}{}\033[33m => {}\033[0m 302 Moved Temporarily".format(HOUR, LESS, res, redirect_link))
                                 parsing.search_s3(res, req, directory)
                                 outpt(directory, res, stats=302)
@@ -847,7 +847,7 @@ def tryUrl(i, q, threads, manager=False, directory=False, forced=False, u_agent=
                                 if type(req_p) == int:
                                     filterM.check_exclude_code(req)
                                 else:
-                                    filterM.check_exclude_page(req, res, directory, forbi, HOUR)
+                                    filterM.check_exclude_page(req, res, directory, forbi, HOUR, size_bytes=len(req.content))
                                     print("{} {} {} ({})\033[31m400 Server Error\033[0m".format(HOUR, WARNING, res, len(req.content)))
                                     outpt(directory, res, stats=400)
                             else:
@@ -859,7 +859,7 @@ def tryUrl(i, q, threads, manager=False, directory=False, forced=False, u_agent=
                                 if type(req_p) == int:
                                     filterM.check_exclude_code(req)
                                 else:
-                                    filterM.check_exclude_page(req, res, directory, forbi, HOUR)
+                                    filterM.check_exclude_page(req, res, directory, forbi, HOUR, size_bytes=len(req.content))
                                     print("{} {} {} ({})\033[31m500 Server Error\033[0m".format(HOUR, WARNING, res, len(req.content)))
                                     outpt(directory, res, stats=500)
                             else:
