@@ -126,6 +126,8 @@ vdoc/INSTALL.COMPILING
 vdoc/README
 ansible/Vagrantfile
 ansible/roles/common/tasks/main.yml
+common/db/
+common/db/logging
 cpresources/
 openx/
 openx/www/
@@ -150,6 +152,7 @@ wp/v2/settings
 wp-json/wp/v2/settings
 wp-json/yoast/v1/
 wp-activate.php
+wp-links-opml.php
 *.log
 .vagrant
 config.public.php

@@ -48,7 +48,7 @@ def banner():
                                                     
 
 https://github.com/c0dejump/HawkScan
-\033[35mv1.3.1 \033[0m
+\033[35mv1.3.3 \033[0m
 ___________________________________________________________________
     """)
 
@@ -298,6 +298,7 @@ def detect_wafw00f(url, directory, thread):
                 except:
                     confirm_thread = input("{}This website have a waf are you sure to use {} threads ? [y:n] ".format(WARNING, thread))
                 if confirm_thread == "y" or confirm_thread == "Y":
+                    print(LINE)
                     pass
                 else:
                     try:
@@ -398,8 +399,8 @@ def file_backup(s, res, directory, forbi, HOUR, filterM):
         r_files = d_files + result
         if ts:
             time.sleep(ts)
-        if cookie_auth:
-            req_b = s.get(res_b, allow_redirects=False, verify=False, cookies=cookie_auth)
+        if header_parsed:
+            req_b = s.get(res_b, allow_redirects=False, verify=False, headers=header_parsed)
         else:
             if redirect:
                 req_check = s.get(res_b, allow_redirects=True, verify=False)
@@ -410,7 +411,7 @@ def file_backup(s, res, directory, forbi, HOUR, filterM):
         req_b_status = req_b.status_code
         if req_b_status == 200:
             size_bytes = len(req_b.content)
-            ranges = range(size_check - 25, size_check + 25) if size_check < 100000 else range(size_check - 1000, size_check + 1000)
+            ranges = range(size_check - 50, size_check + 50) if size_check < 100000 else range(size_check - 1000, size_check + 1000)
             if size_bytes == size_check or size_bytes in ranges:
                 #if the number of bytes of the page equal to size_check variable and not bigger than size_check +5 and not smaller than size_check -5
                 pass
@@ -448,13 +449,13 @@ def file_backup(s, res, directory, forbi, HOUR, filterM):
             if redirect:
                 print("{} {} {} => {}".format(HOUR, LESS, res_b, req_check.url))
         elif req_b_status == 403:
-            pass
-            #print("{}{}{}".format(HOUR, FORBI, res_b))
+            #pass
+            print("{}{}{}".format(HOUR, FORBI, res_b))
         elif req_b.status_code == 429:
             pass
         elif req_b_status == 406:
             pass
-        elif req_b_status == 503 or req_b_status == 400:
+        elif req_b_status == 503 or req_b_status == 400 or req_b_status == 502:
             pass
         else:
             if exclude:
@@ -475,9 +476,10 @@ def hidden_dir(res, user_agent, directory, forbi, HOUR, filterM):
     pars = res.split("/")
     hidd_d = "{}~{}/".format(url, pars[3])
     hidd_f = "{}~{}".format(url, pars[3])
-    if cookie_auth:
-        req_d = requests.get(hidd_d, headers=user_agent, allow_redirects=False, verify=False, timeout=10, cookies=cookie_auth)
-        req_f = requests.get(hidd_f, headers=user_agent, allow_redirects=False, verify=False, timeout=10, cookies=cookie_auth)
+    if header_parsed:
+        user_agent.update(header_parsed)
+        req_d = requests.get(hidd_d, headers=user_agent, allow_redirects=False, verify=False, timeout=10)
+        req_f = requests.get(hidd_f, headers=user_agent, allow_redirects=False, verify=False, timeout=10)
     else:
         req_d = requests.get(hidd_d, headers=user_agent, allow_redirects=False, verify=False, timeout=10)
         req_f = requests.get(hidd_f, headers=user_agent, allow_redirects=False, verify=False, timeout=10)
@@ -517,6 +519,7 @@ def scan_error(directory, forbi):
             for error_link in read_links.read().splitlines():
                 try:
                     req = requests.get(error_link, verify=False)
+                    len_req_error = len(req.content)
                     if exclude:
                         cep = check_exclude_page(req, error_link, directory, forbi, HOUR=False)
                         if cep:
@@ -524,7 +527,7 @@ def scan_error(directory, forbi):
                             if error_status == 404 or error_status == 406:
                                 pass
                             else:
-                                print("{}[{}] {}".format(INFO, req.status_code, error_link))
+                                print("{}[{}] {} ({})".format(INFO, req.status_code, error_link, len_req_error))
                                 errors_stat = True
                     else: 
                         error_status = req.status_code
@@ -559,7 +562,7 @@ def defined_thread(thread, i, score_next):
     except Exception:
         pass
     if res_time != 0 and res_time < 1 and thread_count < 30:
-        #automaticly 20 threads MAX
+        #automaticly 30 threads MAX
         score = 1
         if i == 40 and score_next == 0:
             return 1, i;
@@ -593,10 +596,11 @@ def len_page_flush(len_p):
         return 100
 
 
-def defined_connect(s, res, user_agent=False, cookie_auth=False):
+def defined_connect(s, res, user_agent=False, header_parsed=False):
     allow_redirection = True if stat == 301 or stat == 302 or redirect else False
-    if cookie_auth:
+    if header_parsed:
         if redirect:
+            user_agent.update(header_parsed)
             req = s.get(res, headers=user_agent, allow_redirects=allow_redirection, verify=False, timeout=10)
             return req
             """if "You need to enable JavaScript to run this app" in req.text or "JavaScript Required" in req.text or "without JavaScript enabled" in req.text:
@@ -606,7 +610,8 @@ def defined_connect(s, res, user_agent=False, cookie_auth=False):
             else:
                 return req"""
         else:
-            req = s.get(res, headers=user_agent, allow_redirects=allow_redirection, verify=False, timeout=10, cookies=cookie_auth)
+            user_agent.update(header_parsed)
+            req = s.get(res, headers=user_agent, allow_redirects=allow_redirection, verify=False, timeout=10)
             return req
             """if "You need to enable JavaScript to run this app" in req.text or "JavaScript Required" in req.text or "without JavaScript enabled" in req.text:
                 print("{}Need to enable JavaScript to run this app, this problem will be fix ASAP sorry".format(INFO))
@@ -625,7 +630,7 @@ def defined_connect(s, res, user_agent=False, cookie_auth=False):
             else:
                 return req"""
         else:
-            req = s.get(res, headers=user_agent, allow_redirects=allow_redirection, verify=False)
+            req = s.get(res, headers=user_agent, allow_redirects=allow_redirection, verify=False, timeout=10)
             return req
             """if "You need to enable JavaScript to run this app" in req.text or "JavaScript Required" in req.text or "without JavaScript enabled" in req.text:
                 print("{}Need to enable JavaScript to run this app, this problem will be fix ASAP sorry".format(INFO))
@@ -706,7 +711,7 @@ def tryUrl(i, q, threads, manager=False, directory=False, forced=False, u_agent=
                 forbi = False
                 if ts: #if --timesleep option defined
                     time.sleep(ts)
-                req = defined_connect(s, res, user_agent, cookie_auth)
+                req = defined_connect(s, res, user_agent, header_parsed)
                 if "robots.txt" in res.split("/")[3:] and req.status_code == 200:
                     print("{} {} {}".format(HOUR, PLUS, res))
                     for r in req.text.split("\n"):
@@ -848,10 +853,10 @@ def tryUrl(i, q, threads, manager=False, directory=False, forced=False, u_agent=
                                     filterM.check_exclude_code(req)
                                 else:
                                     filterM.check_exclude_page(req, res, directory, forbi, HOUR, size_bytes=len(req.content))
-                                    print("{} {} {} ({})\033[31m400 Server Error\033[0m".format(HOUR, WARNING, res, len(req.content)))
+                                    print("{} {} {} ({} bytes)\033[31m400 Server Error\033[0m".format(HOUR, WARNING, res, len(req.content)))
                                     outpt(directory, res, stats=400)
                             else:
-                                print("{} {} {} ({})\033[31m400 Server Error\033[0m".format(HOUR, WARNING, res, len(req.content)))
+                                print("{} {} {} ({} bytes)\033[31m400 Server Error\033[0m".format(HOUR, WARNING, res, len(req.content)))
                                 outpt(directory, res, stats=400)
                             #report.create_report_url(status_link, res, directory)
                         elif status_link == 500:
@@ -860,10 +865,10 @@ def tryUrl(i, q, threads, manager=False, directory=False, forced=False, u_agent=
                                     filterM.check_exclude_code(req)
                                 else:
                                     filterM.check_exclude_page(req, res, directory, forbi, HOUR, size_bytes=len(req.content))
-                                    print("{} {} {} ({})\033[31m500 Server Error\033[0m".format(HOUR, WARNING, res, len(req.content)))
+                                    print("{} {} {} ({} bytes)\033[31m500 Server Error\033[0m".format(HOUR, WARNING, res, len(req.content)))
                                     outpt(directory, res, stats=500)
                             else:
-                                print("{} {} {} ({})\033[31m500 Server Error\033[0m".format(HOUR, WARNING, res, len(req.content)))
+                                print("{} {} {} ({} bytes)\033[31m500 Server Error\033[0m".format(HOUR, WARNING, res, len(req.content)))
                                 outpt(directory, res, stats=500)
                             #report.create_report_url(status_link, res, directory)
                     else:
@@ -907,14 +912,14 @@ def tryUrl(i, q, threads, manager=False, directory=False, forced=False, u_agent=
                 #errors = manager.error_check() #TODO
                 #error_bool = True
             except Exception:
-                #traceback.print_exc() #DEBUG
+                traceback.print_exc() #DEBUG
                 with open(directory + "/errors.txt", "a+") as write_error:
                     write_error.write(res+"\n")
                 #errors = manager.error_check()#TODO
                 #error_bool = True
             q.task_done()
         except Exception:
-            #traceback.print_exc() #DEBUG
+            traceback.print_exc() #DEBUG
             pass
         len_p = len(page)
         len_flush = len_page_flush(len_p)
@@ -924,12 +929,12 @@ def tryUrl(i, q, threads, manager=False, directory=False, forced=False, u_agent=
                 time.sleep(1)
                 print_time = "stop {}s |".format(time_i) if time_bool else ""
                 #for flush display
-                sys.stdout.write("\033[34m {0:.2f}% - {1}/{2} | Threads: {3:} - {4} | {5:{6}}\033[0m\r".format(percentage(numbers+nLine, len_w)*thread_all, numbers*thread_all+nLine, len_w, thread_all, print_time, page, len_flush))
+                sys.stdout.write("\033[34m {0:.2f}% - {1}/{2} | T: {3:} - {4} | {5:{6}}\033[0m\r".format(percentage(numbers+nLine, len_w)*thread_all, numbers*thread_all+nLine, len_w, thread_all, print_time, page, len_flush))
                 sys.stdout.flush()
             time_i = 60
             time_bool = False
         else:
-            sys.stdout.write("\033[34m {0:.2f}% - {1}/{2} | Threads: {3:} | {4:{5}}\033[0m\r".format(percentage(numbers+nLine, len_w)*thread_all, numbers*thread_all+nLine, len_w, thread_all, page, len_flush))
+            sys.stdout.write("\033[34m {0:.2f}% - {1}/{2} | T: {3:} | {4:{5}}\033[0m\r".format(percentage(numbers+nLine, len_w)*thread_all, numbers*thread_all+nLine, len_w, thread_all, page, len_flush))
             sys.stdout.flush()
 
 
@@ -939,7 +944,7 @@ def check_words(url, wordlist, directory, u_agent, thread, forced=False, nLine=F
     Functions wich manage multi-threading
     """
     #report = create_report_test()
-    #report.create_report_base(directory, cookie_)
+    #report.create_report_base(directory, header_)
     if thread:
         threads = thread
     if auto:
@@ -1028,9 +1033,10 @@ def create_file(url, stat, u_agent, thread, subdomains):
         miniScan.wayback_check(dire, directory)
         miniScan.gitpast(url)
         miniScan.firebaseio(url)
+        miniScan.check_localhost(url)
         status(stat, directory, u_agent, thread, manageDir)
         scan_error(directory, forbi)
-        create_report(directory, cookie_)
+        create_report(directory, header_)
     # or else ask the question
     else:
         try:
@@ -1057,16 +1063,17 @@ def create_file(url, stat, u_agent, thread, subdomains):
             miniScan.wayback_check(dire, directory)
             miniScan.gitpast(url)
             miniScan.firebaseio(dire)
+            miniScan.check_localhost(url)
             status(stat, directory, u_agent, thread, manageDir)
             scan_error(directory, forbi)
-            create_report(directory, cookie_)
+            create_report(directory, header_)
         else:
             print(LINE)
             if subdomains:
                 subdomain(subdomains)
             status(stat, directory, u_agent, thread, manageDir)
             scan_error(directory, forbi)
-            create_report(directory, cookie_)
+            create_report(directory, header_)
 
 
 if __name__ == '__main__':
@@ -1082,10 +1089,10 @@ if __name__ == '__main__':
     parser.add_argument("-p", help="Add prefix in wordlist to scan", required=False, dest="prefix")
     parser.add_argument("-o", help="Output to site_scan.txt (default in website directory)", required=False, dest="output")
     parser.add_argument("-b", help="Add a backup file scan like 'exemple.com/~exemple/, exemple.com/ex.php.bak...' but longer", required=False, dest="backup", action='store_true')
-    parser.add_argument("--cookie", help="Scan with an authentification cookie", required=False, dest="cookie_", type=str)
+    parser.add_argument("-H", help="modify HEADER", required=False, dest="header_", type=str)
     parser.add_argument("--exclude", help="To define a page or response code status type to exclude during scan", required=False, dest="exclude")
     parser.add_argument("--timesleep", help="To define a timesleep/rate-limit if app is unstable during scan", required=False, dest="ts", type=float, default=0)
-    parser.add_argument("--auto", help="Automatic threads depending response to website. Max: 20", required=False, dest="auto", action='store_true')
+    parser.add_argument("--auto", help="Automatic threads depending response to website. Max: 30", required=False, dest="auto", action='store_true')
     parser.add_argument("--update", help="For automatic update", required=False, dest="update", action='store_true')
     results = parser.parse_args()
                                      
@@ -1099,7 +1106,7 @@ if __name__ == '__main__':
     prefix = results.prefix
     output = results.output
     backup = results.backup
-    cookie_ = results.cookie_
+    header_ = results.header_
     exclude = results.exclude 
     ts = results.ts
     auto = results.auto
@@ -1109,17 +1116,17 @@ if __name__ == '__main__':
     if update:
         auto_update()
     len_w = 0 #calcul wordlist size
-    cookie_auth = {}
+    header_parsed = {}
     if url.split("/")[-1] != "":
         url = url + "/"
-    if cookie_:
-        s = cookie_.split(";")
+    if header_:
+        s = header_.split(";")
         for c in s:
-            if "=" in c:
-                c = c.split("=", 1)
-            elif ":" in c:
+            if ":" in c:
                 c = c.split(":", 1)
-            cookie_auth.update([(c[0],c[1])])
+            elif "=" in c:
+                c = c.split("=", 1)
+            header_parsed.update([(c[0],c[1])])
     with open(wordlist, 'r') as words:
         for l in words:
             len_w += 1

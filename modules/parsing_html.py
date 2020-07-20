@@ -36,7 +36,7 @@ class parsing_html:
         """
         search_s3: Check on source page if a potentialy "s3 amazon bucket" is there
         """
-        s3_keyword = ["S3://", "s3-", "amazonaws"]
+        s3_keyword = ["S3://", "s3-", "amazonaws", "aws."]
         for s3_f in s3_keyword:
             reqtext = req.text.split(" ")
             for req_key in reqtext:

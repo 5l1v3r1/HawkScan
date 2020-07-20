@@ -11,10 +11,10 @@ This script use "Sublist3r" to scan subdomains (https://github.com/aboul3la/Subl
 This script use "waybacktool" to check in waybackmachine (https://github.com/Rhynorater/waybacktool)
 
 # News
-**!** V 1.3.1 !     
-**!** New logo   
-**!** Code review   
-**!** Adding Changelog    
+**!** V 1.3.3 !   
+**!** Replace "--cookie" by "-H" for different header values; ex: -H "Host:test" // -H "Authentification:cookie" (not space after ":" or "=")
+**!** Adding Dockerfile
+**!** Adding new function which try automatically if it's possible scanning with "localhost" host
 
 # Features
  - [x] URL fuzzing and dir/file detection
@@ -46,6 +46,7 @@ This script use "waybacktool" to check in waybackmachine (https://github.com/Rhy
  - [x] Automatic threads depending response to website (and reconfig if WAF detected too many times). Max: 30
  - [x] Search S3 buckets in source code page
  - [x] Testing bypass of waf if detected
+ - [x] Testing if it's possible scanning with "localhost" host
  
 # TODO 
 **P1 is the most important**
@@ -80,7 +81,7 @@ This script use "waybacktool" to check in waybackmachine (https://github.com/Rhy
     optional arguments: 
       -h, --help     show this help message and exit                                                                     
       -u URL         URL to scan [required]                                                                              
-      -w WORDLIST    Wordlist used for URL Fuzzing. Default: dico.txt                                                            
+      -w WORDLIST    Wordlist used for URL Fuzzing [required]                                                            
       -s SUBDOMAINS  subdomain tester                                                                                    
       -t THREAD      Number of threads to use for URL Fuzzing. Default: 20  
       -a USER_AGENT  choice user-agent     
@@ -92,7 +93,7 @@ This script use "waybacktool" to check in waybackmachine (https://github.com/Rhy
       --cookie COOKIE  Scan with an authentification cookie   
       --exclude EXCLUDE  To define a page type to exclude during scan    
       --timesleep TS     To define a timesleep/rate-limit if app is unstable during scan 
-      --auto          Automatic threads depending response to website. Max: 20    
+      --auto          Automatic threads depending response to website. Max: 10    
       --update           For automatic update
 
  >
@@ -120,4 +121,4 @@ This script use "waybacktool" to check in waybackmachine (https://github.com/Rhy
 # Thanks
 Layno (https://github.com/Clayno/)      
 Sanguinarius (https://twitter.com/sanguinarius_Bt)        
-Cyber_Ph4ntoM (https://twitter.com/__PH4NTOM__)
+Cyber_Ph4ntoM  

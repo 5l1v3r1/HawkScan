@@ -274,6 +274,6 @@ def create_report(directory, cookie_):
 </html>'''.format(waf, cms, auth_stat, urls, mails, link, wayback))
 
 """if __name__ == '__main__':
-    directory = "/sites/etigo/"
+    directory = "/sites/"
     cookie_ = None
     create_report(directory, cookie_)"""#DEBUG
