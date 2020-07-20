@@ -5,7 +5,6 @@ Changelog:
 		Adding new function which try automatically if it's possible scanning with "localhost" host
 
 	- 1.3.2
-		Adding Dockerfile
 		Replace "--cookie" by "-H" for different header values; ex: -H "Host:test" // -H "Authentification:cookie" (not space after ":" or "=")
 
 	- 1.3.1:
