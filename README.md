@@ -12,9 +12,9 @@ This script use "waybacktool" to check in waybackmachine (https://github.com/Rhy
 
 # News
 **!** V 1.3.3 !   
-**!** Replace "--cookie" by "-H" for different header values; ex: -H "Host:test" // -H "Authentification:cookie" (not space after ":" or "=")
-**!** Adding Dockerfile
-**!** Adding new function which try automatically if it's possible scanning with "localhost" host
+**!** Replace "--cookie" by "-H" for different header values; ex: -H "Host:test" // -H "Authentification:cookie" (not space after ":" or "=")    
+**!** Adding Dockerfile      
+**!** Adding new function which try automatically if it's possible scanning with "localhost" host     
 
 # Features
  - [x] URL fuzzing and dir/file detection
