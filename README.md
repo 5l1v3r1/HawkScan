@@ -78,22 +78,22 @@ This script use "waybacktool" to check in waybackmachine (https://github.com/Rhy
  > 
  
     optional arguments: 
-      -h, --help     show this help message and exit                                                                     
-      -u URL         URL to scan [required]                                                                              
-      -w WORDLIST    Wordlist used for URL Fuzzing [required]                                                            
-      -s SUBDOMAINS  subdomain tester                                                                                    
-      -t THREAD      Number of threads to use for URL Fuzzing. Default: 20  
-      -a USER_AGENT  choice user-agent     
-      --redirect     For scan with redirect response like 301,302      
-      -p PREFIX      add prefix in wordlist to scan    
-      -o OUTPUT      output to site_scan.txt (default in website directory)      
-      -b             Add a backup file scan like 'exemple.com/ex.php.bak...' but longer      
-      -r             recursive dir/files       
-      --cookie COOKIE  Scan with an authentification cookie   
-      --exclude EXCLUDE  To define a page type to exclude during scan    
-      --timesleep TS     To define a timesleep/rate-limit if app is unstable during scan 
-      --auto          Automatic threads depending response to website. Max: 10    
-      --update           For automatic update
+     -h, --help         show this help message and exit
+     -u URL             URL to scan [required]
+     -w WORDLIST        Wordlist used for URL Fuzzing. Default: dico.txt
+     -s SUBDOMAINS      Subdomain tester
+     -t THREAD          Number of threads to use for URL Fuzzing. Default: 20
+     -a USER_AGENT      Choice user-agent 
+     --redirect         For scan with redirect response (301/302) 
+     -r                 Recursive dir/files      
+     -p PREFIX          Add prefix in wordlist to scan      
+     -o OUTPUT          Output to site_scan.txt (default in website directory)       
+     -b                 Add a backup file scan like 'exemple.com/~exemple/, exemple.com/ex.php.bak...' but longer             
+     -H HEADER_         modify HEADER              
+     --exclude EXCLUDE  To define a page or response code status type to exclude during scan                                            
+     --timesleep TS     To define a timesleep/rate-limit if app is unstable during scan                                 
+     --auto             Automatic threads depending response to website. Max: 30      
+     --update           For automatic update
 
  >
 
