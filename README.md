@@ -120,4 +120,4 @@ This script use "waybacktool" to check in waybackmachine (https://github.com/Rhy
 # Thanks
 Layno (https://github.com/Clayno/)      
 Sanguinarius (https://twitter.com/sanguinarius_Bt)        
-Cyber_Ph4ntoM  
+Cyber_Ph4ntoM (https://twitter.com/__PH4NTOM__)  
